@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.job.name | default (include "base.fullname" .) }}
+  name: {{ .Values.job.name | default (include "base-api.fullname" .) }}
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base-api.labels" . | nindent 4 }}
     {{- if .Values.job.labels }}
     {{- range $key, $value := .Values.job.labels }}
     {{ $value.name }}: {{ $value.value | quote}}
@@ -23,7 +23,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "base.selectorLabels" . | nindent 8 }}
+        {{- include "base-api.selectorLabels" . | nindent 8 }}
         {{- if .Values.job.labels }}
         {{- range $key, $value := .Values.job.labels }}
         {{ $value.name }}: {{ $value.value | quote }}
@@ -31,7 +31,7 @@ spec:
         {{- end }}
     spec:
       containers:
-      - name:  {{ .Values.job.name | default (include "base.fullname" .) }}
+      - name:  {{ .Values.job.name | default (include "base-api.fullname" .) }}
         image: "{{ .Values.job.image.repository }}:{{ .Values.job.image.tag | default .Chart.AppVersion }}"
         {{- if .Values.job.command }}
         command:
@@ -91,7 +91,7 @@ spec:
             {{- if $element.persistentVolumeClaim.claimName }}
             claimName: {{ $element.persistentVolumeClaim.claimName }}
             {{- else }}
-            claimName: {{ include "base.fullname" $ }}
+            claimName: {{ include "base-api.fullname" $ }}
             {{- end }}
           {{- end }}
           {{- if $element.secret }}

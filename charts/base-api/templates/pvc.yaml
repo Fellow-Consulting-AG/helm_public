@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.storage.persistentVolumeClaimName | default (include "base.fullname" .) }}
+  name: {{ .Values.storage.persistentVolumeClaimName | default (include "base-api.fullname" .) }}
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base-api.labels" . | nindent 4 }}
   {{- if .Values.storage.keepPvc }}
   annotations:
     "helm.sh/resource-policy": keep
@@ -24,6 +24,6 @@ spec:
   {{ if .Values.storage.enableDataSource}}
   dataSource:
     kind: PersistentVolumeClaim
-    name: {{ .Values.storage.persistentVolumeClaimName | default (include "base.fullname" .) }}
+    name: {{ .Values.storage.persistentVolumeClaimName | default (include "base-api.fullname" .) }}
 {{- end }}
 {{- end }}

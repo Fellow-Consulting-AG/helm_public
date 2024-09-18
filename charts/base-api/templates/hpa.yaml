@@ -1,5 +1,5 @@
 {{- if .Values.autoscaling.enabled -}}
-{{- $kubeVersion := (include "base.capabilities.kubeVersion" .) -}}
+{{- $kubeVersion := (include "base-api.capabilities.kubeVersion" .) -}}
 {{- if semverCompare ">=1.23-0" $kubeVersion -}}
 apiVersion: autoscaling/v2
 {{- else -}}
@@ -7,14 +7,14 @@ apiVersion: autoscaling/v2beta1
 {{- end }}
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "base.fullname" . }}
+  name: {{ include "base-api.fullname" . }}
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base-api.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "base.fullname" . }}
+    name: {{ include "base-api.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

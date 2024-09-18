@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "base.fullname" . }}
+  name: {{ include "base-api.fullname" . }}
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base-api.labels" . | nindent 4 }}
     {{- if .Values.labels }}
     {{- range $key, $value := .Values.labels }}
     {{ $value.name }}: {{ $value.value | quote}}
@@ -21,7 +21,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "base.selectorLabels" . | nindent 6 }}
+      {{- include "base-api.selectorLabels" . | nindent 6 }}
       {{- if .Values.matchLabels }}
       {{- range $key, $value := .Values.matchLabels }}
       {{ $value.name }}: {{ $value.value | quote}}
@@ -39,7 +39,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "base.selectorLabels" . | nindent 8 }}
+        {{- include "base-api.selectorLabels" . | nindent 8 }}
         {{- if .Values.labels }}
         {{- range $key, $value := .Values.labels }}
         {{ $value.name }}: {{ $value.value | quote }}
@@ -50,7 +50,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "base.serviceAccountName" . }}
+      serviceAccountName: {{ include "base-api.serviceAccountName" . }}
       {{- if .Values.initContainers }}
       initContainers:
        {{- range $initContainer := (ternary .Values.initContainers (list .Values.initContainers) (kindIs "slice" .Values.initContainers)) }}
@@ -164,7 +164,7 @@ spec:
           {{- end }}
           {{- if eq .Values.extraContainer.secretsDefaultEngine "ExternalSecrets" }}
           - secretRef:
-              name: {{ include "base.fullname" . }}
+              name: {{ include "base-api.fullname" . }}
               optional: true
           {{- end }}
           {{- if .Values.extraContainer.deployment.volumes }}
@@ -185,7 +185,7 @@ spec:
             {{- toYaml .Values.extraContainer.deployment.lifecycle | nindent 12 }}
           {{- end }}
         {{- end }} 
-        - name: {{ include "base.fullname" . }}
+        - name: {{ include "base-api.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -238,7 +238,7 @@ spec:
           envFrom:
             {{- if .Values.config }}
             - configMapRef:
-                name: {{ include "base.fullname" . }}
+                name: {{ include "base-api.fullname" . }}
             {{- end }}
             {{- if .Values.externalConfigmap }}
             - configMapRef:
@@ -246,7 +246,7 @@ spec:
             {{- end }}
             {{- if eq .Values.secretsDefaultEngine "ExternalSecrets" }}
             - secretRef:
-                name: {{ include "base.fullname" . }}
+                name: {{ include "base-api.fullname" . }}
                 optional: true
             {{- end }}
             {{- if .Values.envFrom.secret }}
@@ -287,7 +287,7 @@ spec:
             {{- if $element.persistentVolumeClaim.claimName }}
             claimName: {{ $element.persistentVolumeClaim.claimName }}
             {{- else }}
-            claimName: {{ include "base.fullname" $ }}
+            claimName: {{ include "base-api.fullname" $ }}
             {{- end }}
           {{- end }}
           {{- if $element.secret }}

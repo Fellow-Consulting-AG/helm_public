@@ -2,10 +2,10 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ .Values.pdb.pdbName | default (include "base.fullname" .) }}
+  name: {{ .Values.pdb.pdbName | default (include "base-api.fullname" .) }}
 spec:
   minAvailable: {{ .Values.pdb.minAvailable }}
   selector:
     matchLabels:
-      {{- include "base.selectorLabels" . | nindent 6 }}
+      {{- include "base-api.selectorLabels" . | nindent 6 }}
 {{- end }}
