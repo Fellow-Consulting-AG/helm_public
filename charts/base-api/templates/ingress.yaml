@@ -8,7 +8,7 @@ metadata:
   name: {{ .name }}
   namespace: {{ .namespace }}
   labels:
-{{ include "app.labels" $ | indent 4 }}
+    {{- include "base.labels" . | nindent 4 }}
   {{- with .annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
