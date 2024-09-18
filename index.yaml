@@ -110,7 +110,7 @@ entries:
     name: base-api
     type: application
     urls:
-    - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-api-0.1.61/base.tgz
+    - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-api-0.1.61/base-api.tgz
     version: 0.1.61
   # - apiVersion: v2
   #   appVersion: 0.1.59
