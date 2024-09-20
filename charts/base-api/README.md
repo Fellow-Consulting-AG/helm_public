@@ -51,14 +51,14 @@ This chart provides a base template helpers which can be used to develop new cha
 
 | Helper identifier         | Description  | Expected Input              | Default Value             |
 | ------------------------- | --------------------------------------------------------------------------------------------- | --------------------------- | ------------------------- |
-| `base-api.name`               | The name of the chart.           | .Values.name                | .Chart.Name               |
-| `base-api.fullname`           | Fully qualified app name. If release name contains chart name it will be used as a full name. | .Values.fullnameOverride    | .Release.Name             |
-| `base-api.version`            | The version of the chart.        | .Values.version             | .Chart.Version            |
-| `base-api.appVersion`         | The appVersion of the chart.     | .Values.appVersion          | .Chart.AppVersion         |
-| `base-api.chart`              | It's made of base-api.name and base-api.version.             | ---    | ---  |
-| `base-api.labels`             | Common labels. ---    | ---  |
-| `base-api.selectorLabels`     | Selector labels.                 | ---    | ---  |
-| `base-api.serviceAccountName` | The name of the service account to use.              | .Values.serviceAccount.name | base-api.fullname / "default" |
+| `base.name`               | The name of the chart.           | .Values.name                | .Chart.Name               |
+| `base.fullname`           | Fully qualified app name. If release name contains chart name it will be used as a full name. | .Values.fullnameOverride    | .Release.Name             |
+| `base.version`            | The version of the chart.        | .Values.version             | .Chart.Version            |
+| `base.appVersion`         | The appVersion of the chart.     | .Values.appVersion          | .Chart.AppVersion         |
+| `base.chart`              | It's made of base.name and base.version.             | ---    | ---  |
+| `base.labels`             | Common labels. ---    | ---  |
+| `base.selectorLabels`     | Selector labels.                 | ---    | ---  |
+| `base.serviceAccountName` | The name of the service account to use.              | .Values.serviceAccount.name | base.fullname / "default" |
 
 ## Default Values
 
