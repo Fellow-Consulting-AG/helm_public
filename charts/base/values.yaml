@@ -1,3 +1,7 @@
+# Default values for datalertio.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
 replicaCount: 1
 
 image:
@@ -46,7 +50,8 @@ podAnnotations: {}
 podSecurityContext: {}
 # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -68,9 +73,17 @@ service:
   #     protocol: TCP
   #     name: http-second
 
+# The ingress class setting by annotation is deprecated and we have setIngressClassByField option for backward compatibility for now, check doc here https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
+# have 'setIngressClassByField: true' to set ingress class by spec.ingressClassName,
+# we seems cant have both "kubernetes.io/ingress.class" and spec.ingressClassName set at once, so there is check(for alb, application-gateway and cce the check is missing for now) to not set annotation if we set ingress class fy field
+# TODO: have ingress class setting by field used always and remove deprecated "kubernetes.io/ingress.class" annotations
+setIngressClassByField: false
+
+# it allows also to pass list of ingresses in following form
+# NOTE: in case of list it will auto attach uniq identify numbers to ingress names starting from second item, you can use nameSuffix field to set custom suffix instead of number
 ingress:
-  enabled: false
   class: alb
+  enabled: false
   annotations: {}
   hosts:
     - host: host.name.com
@@ -84,10 +97,29 @@ ingress:
             servicePort: 80
           path: /*
   tls: []
+# example how can be ingress list passed
+# ingress:
+#   - class: nginx
+#     hosts:
+#       - host: host.name.com
+#         paths:
+#           - backend:
+#               serviceName: base
+#               servicePort: 80
+#             path: /*
+#   - class: nginx-second
+#     nameSuffix: -second
+#     hosts:
+#       - host: host-second.name.com
+#         paths:
+#           - path: /*
+#             backend:
+#               serviceName: base
+#               servicePort: 8080
 
 secrets: []
 secretsDefaultEngine: "ExternalSecrets"
-# secrets: 
+# secrets:
 #   - external-secret-1
 #   - external-secret-2
 #   - external-secret-3
@@ -110,7 +142,8 @@ secretsDefaultEngine: "ExternalSecrets"
 
 extraContainer: {}
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -139,7 +172,8 @@ config: {}
 
 containerPort: 80
 
-livenessProbe: {}
+livenessProbe:
+  {}
   # failureThreshold: 3
   # httpGet:
   #   path: /
@@ -150,7 +184,8 @@ livenessProbe: {}
   # successThreshold: 1
 # timeoutSeconds: 1
 
-readinessProbe: {}
+readinessProbe:
+  {}
   # httpGet:
   #   path: /
   #   port: http
@@ -160,18 +195,26 @@ readinessProbe: {}
 envFrom:
   secret:
 
-startupProbe: {}
+startupProbe:
+  {}
   # httpGet:
   #   path: /
 #   port: http
 
-storage: {}
-  # persistentVolumeClaimName: pvc-docs
-  # requestedSize: 1G
-  # className: gp2
-  # accessModes:
-  #   - ReadWriteOnce
-# keepPvc: false
+storage:
+  {}
+  # - persistentVolumeClaimName: "pvc-1"
+  #   accessModes:
+  #     - ReadWriteMany
+  #   className: efs-sc
+  #   requestedSize: 2Gi
+  #   enableDataSource: false
+  # - persistentVolumeClaimName: pvc-2
+  #   accessModes:
+  #     - ReadWriteMany
+  #   className: efs-sc-root
+  #   requestedSize: "2Gi"
+  #   enableDataSource: false
 
 deployment: {}
 
@@ -182,3 +225,9 @@ pdb:
   enabled: false
   minAvailable: 1
   pdbName:
+
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  targetPort: 80
+  path: /metrics
