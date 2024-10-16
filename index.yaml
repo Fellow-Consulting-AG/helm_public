@@ -78,17 +78,17 @@ entries:
   #   urls:
   #   - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-0.1.62/base-0.1.62.tgz
   #   version: 0.1.62
-  # - apiVersion: v2
-  #   appVersion: 0.1.61
-  #   created: "2024-04-08T10:14:21.583538996Z"
-  #   description: A Base Helm chart for Kubernetes
-  #   digest: dd914cb82848402feba32e904cbe39ed40a5430034b0ff60da5767f4442a40cc
-  #   icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
-  #   name: base
-  #   type: application
-  #   urls:
-  #   - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-0.1.61/base-0.1.61.tgz
-  #   version: 0.1.61
+  - apiVersion: v2
+    appVersion: 0.1.61
+    created: "2024-04-08T10:14:21.583538996Z"
+    description: A Base Helm chart for Kubernetes
+    digest: dd914cb82848402feba32e904cbe39ed40a5430034b0ff60da5767f4442a40cc
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-0.1.61/base-0.1.61.tgz
+    version: 0.1.61
   - apiVersion: v2
     appVersion: 0.1.60
     created: "2024-03-29T11:54:01.401833213Z"
@@ -100,18 +100,6 @@ entries:
     urls:
     - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-0.1.60/base-0.1.60.tgz
     version: 0.1.60
-  base-api:
-  - apiVersion: v2
-    appVersion: 0.1.61
-    created: "2024-03-29T11:54:01.401833213Z"
-    description: A Base Helm chart for Kubernetes
-    digest: f0416684206970dbd2116e47f92bd546318f4001b5520bd774c7b9a42ea37efa
-    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
-    name: base-api
-    type: application
-    urls:
-    - https://github.com/Fellow-Consulting-AG/helm_public/releases/download/base-api-0.1.61/base-api.tgz
-    version: 0.1.61
   # - apiVersion: v2
   #   appVersion: 0.1.59
   #   created: "2024-03-26T09:39:24.045431385Z"
