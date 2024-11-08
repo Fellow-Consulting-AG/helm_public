@@ -45,6 +45,12 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+job:
+  serviceAccount:
+    create: false
+    annotations: {}
+  
+
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -82,8 +88,8 @@ setIngressClassByField: false
 # it allows also to pass list of ingresses in following form
 # NOTE: in case of list it will auto attach uniq identify numbers to ingress names starting from second item, you can use nameSuffix field to set custom suffix instead of number
 ingress:
-  class: alb
   enabled: false
+  class: alb
   annotations: {}
   hosts:
     - host: host.name.com
