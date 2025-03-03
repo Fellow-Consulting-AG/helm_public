@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $service.metadata.name }}
+  name: {{ $service.name }}
   labels:
     {{- include "base.labels" . | nindent 4 }}
   {{- with $service.annotations }}
