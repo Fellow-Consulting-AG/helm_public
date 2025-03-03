@@ -226,7 +226,6 @@ spec:
             - name: http
               containerPort: {{ .Values.containerPort | default 80 }}
               protocol: TCP
-          {{- end }}
           {{- if .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
