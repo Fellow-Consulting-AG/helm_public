@@ -16,7 +16,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "base.fullname" -}}
-  {{- $name := .Release.Name | default $.Values.releaseName }}
+  {{- $name := $.Release.Name | default $.Values.releaseName }}
   {{- if not $name }}
     {{- fail "Release.Name or fallback value is not available. Please ensure you're using a valid Helm context." }}
   {{- end }}
