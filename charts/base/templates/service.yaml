@@ -1,5 +1,6 @@
-{{- if or (and (kindIs "slice" .Values.service) .Values.service ) ((.Values.service).enabled) -}}
-{{- range $key, $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
+{{- $services := ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service) }}
+{{- range $service := $services }}
+  {{- if $service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
