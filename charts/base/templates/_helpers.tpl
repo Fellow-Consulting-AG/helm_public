@@ -1,8 +1,13 @@
 {{/*
 Expand the name of the chart.
 */}}
+
 {{- define "base.name" -}}
-{{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" }}
+{{- if .Chart.Name }}
+    {{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+  "default-name"
+{{- end }}
 {{- end }}
 
 {{/*
