@@ -3,8 +3,8 @@ Expand the name of the chart.
 */}}
 
 {{- define "base.name" -}}
-{{- if .Chart.Name }}
-    {{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" }}
+{{- if .Chart }}
+  {{ .Chart.Name | default "default-name" }}
 {{- else }}
   "default-name"
 {{- end }}
@@ -32,14 +32,14 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "base.chart" -}}
-{{- printf "%s-%s" (include "base.name" .) (include "base.version" .) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" (include "base.name" $) (include "base.version" .) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
 {{- define "base.labels" -}}
-helm.sh/chart: {{ include "base.chart" . }}
+helm.sh/chart: {{ include "base.chart" $ }}
 {{ include "base.selectorLabels" . }}
 app.kubernetes.io/version: {{ include "base.appVersion" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
