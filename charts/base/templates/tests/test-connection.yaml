@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "base.fullname" $ }}-test-connection-{{ $service.name }}"
+  name: "{{ include "base.fullname" $ }}-test-connection"
   labels:
     {{- include "base.labels" $ | nindent 4 }}
   annotations:
@@ -13,7 +13,7 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "base.fullname" $ }}:{{ $service.port }}']
+      args: [{{ printf "%s:%d" (include "base.fullname" $) $service.port }}]
   restartPolicy: OnFailure
 ---
   {{- end }}
@@ -31,6 +31,6 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "base.fullname" $ }}:{{ .Values.service.port }}']
+      args: [{{ printf "%s:%d" (include "base.fullname" $) .Values.service.port }}]
   restartPolicy: OnFailure
 {{- end }}

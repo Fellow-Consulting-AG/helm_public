@@ -1,13 +1,8 @@
 {{/*
 Expand the name of the chart.
 */}}
-
 {{- define "base.name" -}}
-{{- if .Chart }}
-  {{ .Chart.Name | default "default-name" }}
-{{- else }}
-  "default-name"
-{{- end }}
+{{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -16,22 +11,42 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "base.fullname" -}}
-  {{- $name := $.Release.Name | default $.Values.releaseName }}
-  {{- if not $name }}
-    {{- fail "Release.Name or fallback value is not available. Please ensure you're using a valid Helm context." }}
-  {{- end }}
-  
-  {{- $name := default (printf "%s-%s" $name .Chart.Name) $.Values.fullnameOverride }}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
 
-  {{- $name | trunc 63 | trimSuffix "-" }}
+{{- define "base.serviceNames" -}}
+{{- range .Values.services }}
+  {{- .name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{- define "base.serviceLabels" -}}
+{{- range .Values.services }}
+  app.kubernetes.io/name: {{ include "base.fullname" . }}
+  app.kubernetes.io/instance: {{ .Release.Name }}
+  app.kubernetes.io/service: {{ .name }}
+{{- end }}
+{{- end }}
+
+{{- define "base.serviceSelector" -}}
+{{- range .Values.services }}
+  app.kubernetes.io/name: {{ include "base.fullname" . }}
+  app.kubernetes.io/instance: {{ .Release.Name }}
+  app.kubernetes.io/service: {{ .name }}
+{{- end }}
 {{- end }}
 
 {{- define "base.version" -}}
-{{- if .Chart }}
-  {{ .Chart.Version | default "0.1.63" }}
-{{- else }}
-  "0.1.63"
-{{- end }}
+{{- default .Chart.Version .Values.version | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{- define "base.appVersion" -}}
@@ -42,14 +57,14 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "base.chart" -}}
-{{- printf "%s-%s" (include "base.name" $) (include "base.version" $) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" (include "base.name" .) (include "base.version" .) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
 {{- define "base.labels" -}}
-helm.sh/chart: {{ include "base.chart" $ }}
+helm.sh/chart: {{ include "base.chart" . }}
 {{ include "base.selectorLabels" . }}
 app.kubernetes.io/version: {{ include "base.appVersion" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
