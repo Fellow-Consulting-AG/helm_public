@@ -1,4 +1,5 @@
-{{- if .Values.service.enabled -}}
+{{- if or (and (kindIs "slice" .Values.service) .Values.service ) ((.Values.service).enabled) -}}
+{{- range $key, $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -12,6 +13,6 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "base.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "base.fullname" . }}:{{ $service.port }}']
   restartPolicy: OnFailure
 {{- end }}

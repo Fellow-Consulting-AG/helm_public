@@ -222,7 +222,6 @@ spec:
             {{- end }}
             {{- end }}
           {{- end }}
-          {{- if .Values.service.enabled }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort | default 80 }}
