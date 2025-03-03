@@ -16,3 +16,4 @@ spec:
       args: ['{{ include "base.fullname" . }}:{{ $service.port }}']
   restartPolicy: OnFailure
 {{- end }}
+{{- end }}
