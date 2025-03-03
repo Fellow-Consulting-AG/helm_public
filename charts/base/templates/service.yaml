@@ -14,7 +14,7 @@ spec:
   type: {{ $service.type }}
   ports:
     - port: {{ $service.port }}
-      targetPort: {{ $service.targetPort | default .Values.containerPort }}
+      targetPort: {{ $service.targetPort | default $.Values.containerPort }}
       protocol: {{ $service.protocol }}
       name: {{ $service.name }}
     {{- if $service.extraPorts }}
