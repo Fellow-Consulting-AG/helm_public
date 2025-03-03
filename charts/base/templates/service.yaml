@@ -1,24 +1,26 @@
-{{- if .Values.service.enabled -}}
+{{- if or (and (kindIs "slice" .Values.service) .Values.service ) ((.Values.service).enabled) -}}
+{{- range $key, $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "base.fullname" . }}
+  name: {{ $service.metadata.name }}
   labels:
     {{- include "base.labels" . | nindent 4 }}
-  {{- with .Values.service.annotations }}
+  {{- with $service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ $service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort | default .Values.containerPort }}
-      protocol: {{ .Values.service.protocol }}
-      name: {{ .Values.service.name }}
-    {{- if .Values.service.extraPorts }}
-    {{- toYaml .Values.service.extraPorts | nindent 4 }}
+    - port: {{ $service.port }}
+      targetPort: {{ $service.targetPort | default .Values.containerPort }}
+      protocol: {{ $service.protocol }}
+      name: {{ $service.name }}
+    {{- if $service.extraPorts }}
+    {{- toYaml $service.extraPorts | nindent 4 }}
     {{- end }}
   selector:
     {{- include "base.selectorLabels" . | nindent 4 }}
+{{- end }}
 {{- end }}
