@@ -19,13 +19,13 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "base.serviceNames" -}}
-{{- range .Values.services }}
+{{- range .Values.service }}
   {{- .name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 
 {{- define "base.serviceLabels" -}}
-{{- range .Values.services }}
+{{- range .Values.service }}
   app.kubernetes.io/name: {{ include "base.fullname" . }}
   app.kubernetes.io/instance: {{ .Release.Name }}
   app.kubernetes.io/service: {{ .name }}
@@ -33,7 +33,7 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "base.serviceSelector" -}}
-{{- range .Values.services }}
+{{- range .Values.service }}
   app.kubernetes.io/name: {{ include "base.fullname" . }}
   app.kubernetes.io/instance: {{ .Release.Name }}
   app.kubernetes.io/service: {{ .name }}

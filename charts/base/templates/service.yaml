@@ -1,4 +1,4 @@
-{{- range $service := (ternary .Values.services (list .Values.service) (kindIs "slice" .Values.services)) }}
+{{- range $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
   {{- if or $service.enabled (not $service.enabled) }} 
     apiVersion: v1
     kind: Service
