@@ -1,12 +1,11 @@
-{{- $services := ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service) }}
-{{- range $service := $services }}
+{{- range $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
   {{- if $service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ $service.name }}
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base.labels" $ | nindent 4 }}
   {{- with $service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -22,6 +21,6 @@ spec:
     {{- toYaml $service.extraPorts | nindent 4 }}
     {{- end }}
   selector:
-    {{- include "base.selectorLabels" . | nindent 4 }}
+    {{- include "base.selectorLabels" $ | nindent 4 }}
 {{- end }}
 {{- end }}

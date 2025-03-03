@@ -21,7 +21,11 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "base.version" -}}
-{{- default .Chart.Version .Values.version | trunc 63 | trimSuffix "-" }}
+{{- if .Chart }}
+  {{ .Chart.Version | default "0.1.63" }}
+{{- else }}
+  "0.1.63"
+{{- end }}
 {{- end }}
 
 {{- define "base.appVersion" -}}
@@ -32,7 +36,7 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "base.chart" -}}
-{{- printf "%s-%s" (include "base.name" $) (include "base.version" .) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" (include "base.name" $) (include "base.version" $) | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
