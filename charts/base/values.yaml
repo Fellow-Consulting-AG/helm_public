@@ -66,12 +66,12 @@ securityContext:
 # runAsUser: 1000
 
 service:
-  enabled: true
-  name: http
-  type: NodePort
-  port: 80
-  protocol: TCP
-  extraPorts: []
+  - name: http
+    enabled: true
+    type: NodePort
+    port: 80
+    protocol: TCP
+    extraPorts: []
   ## here is sample how you can set/enable additional ports on service
   # extraPorts:
   #   - port: 8080
@@ -88,21 +88,21 @@ setIngressClassByField: false
 # it allows also to pass list of ingresses in following form
 # NOTE: in case of list it will auto attach uniq identify numbers to ingress names starting from second item, you can use nameSuffix field to set custom suffix instead of number
 ingress:
-  enabled: false
-  class: alb
-  annotations: {}
-  hosts:
-    - host: host.name.com
-      paths:
-        - path: /*
-          backend:
-            serviceName: ssl-redirect
-            servicePort: use-annotation
-        - backend:
-            serviceName: base
-            servicePort: 80
-          path: /*
-  tls: []
+  - class: alb
+    enabled: false
+    annotations: {}
+    hosts:
+      - host: host.name.com
+        paths:
+          - path: /*
+            backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation
+          - backend:
+              serviceName: base
+              servicePort: 80
+            path: /*
+    tls: []
 # example how can be ingress list passed
 # ingress:
 #   - class: nginx
