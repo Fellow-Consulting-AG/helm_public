@@ -1,12 +1,11 @@
-{{- $services := ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service) }}
-{{- range $service := $services }}
-  {{- if $service.enabled }}
+{{- if kindIs "slice" .Values.service -}}
+  {{- range $key, $service := .Values.service }}
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "base.fullname" . | required "fullname is required" }}-test-connection"
+  name: "{{ include "base.fullname" $ }}-test-connection-{{ $service.name }}"
   labels:
-    {{- include "base.labels" . | nindent 4 }}
+    {{- include "base.labels" $ | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
@@ -14,7 +13,24 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "base.fullname" . }}:{{ $service.port }}']
+      args: ['{{ include "base.fullname" $ }}:{{ $service.port }}']
   restartPolicy: OnFailure
+---
   {{- end }}
+{{- else if kindIs "map" .Values.service -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "base.fullname" $ }}-test-connection"
+  labels:
+    {{- include "base.labels" $ | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "base.fullname" $ }}:{{ .Values.service.port }}']
+  restartPolicy: OnFailure
 {{- end }}
