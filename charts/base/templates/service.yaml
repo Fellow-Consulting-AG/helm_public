@@ -1,4 +1,4 @@
-{{- range $service := .Values.services }}
+{{- range $service := .Values.service }}
 {{- if $service.enabled }}
 ---
 apiVersion: v1
