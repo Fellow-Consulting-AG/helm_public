@@ -14,6 +14,8 @@ If release name contains chart name it will be used as a full name.
 {{- if not .Values }}
   {{- fail "ERROR: .Values is nil!" }}
 {{- end }}
+{{- printf "%s-%s" .Release.Name .Chart.Name }}
+
 {{- if .Values.fullnameOverride }}
   {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
