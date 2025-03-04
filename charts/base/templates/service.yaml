@@ -1,26 +1,27 @@
-{{- range $service := (ternary .Values.service (list .Values.service) (kindIs "slice" .Values.service)) }}
-  {{- if or $service.enabled (not $service.enabled) }} 
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: {{ $service.name | default "default-service-name" }}
-      labels:
-        {{- include "base.labels" $ | nindent 4 }}
-      {{- with $service.annotations }}
-      annotations:
-        {{- toYaml . | nindent 4 }}
-      {{- end }}
-    spec:
-      type: {{ $service.type | default "ClusterIP" }}
-      ports:
-        - port: {{ $service.port | default 80 }}
-          targetPort: {{ $service.targetPort | default $.Values.containerPort | default 8080 }}
-          protocol: {{ $service.protocol | default "TCP" }}
-          name: {{ $service.name }}
-        {{- if $service.extraPorts }}
-        {{- toYaml $service.extraPorts | nindent 4 }}
-        {{- end }}
-      selector:
-        {{- include "base.selectorLabels" $ | nindent 4 }}
+{{- range $service := .Values.services }}
+{{- if $service.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $service.name | default "default-service-name" }}
+  labels:
+    {{- include "base.labels" $ | nindent 6 }}
+  {{- with $service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 6 }}
   {{- end }}
+spec:
+  type: {{ $service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ $service.port | default 80 }}
+      targetPort: {{ $service.targetPort | default $.Values.containerPort | default 8080 }}
+      protocol: {{ $service.protocol | default "TCP" }}
+      name: {{ $service.name | default "default-port-name" }}
+    {{- if $service.extraPorts }}
+    {{- toYaml $service.extraPorts | nindent 6 }}
+    {{- end }}
+  selector:
+    {{- include "base.selectorLabels" $ | nindent 6 }}
+{{- end }}
 {{- end }}
