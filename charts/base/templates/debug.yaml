@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debug-values
+data:
+  values.yaml: |-
+    {{- toYaml .Values | nindent 4 }}

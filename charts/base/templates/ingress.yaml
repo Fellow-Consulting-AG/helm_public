@@ -1,7 +1,15 @@
 {{- range $key, $ingress := (ternary .Values.ingress (list .Values.ingress) (kindIs "slice" .Values.ingress)) }}
   {{- if or (and (kindIs "slice" $ingress) $ingress) $ingress.enabled -}}
   ---
+  {{- if not .Values }}
+  {{- fail "ERROR: .Values is nil!" }}
+  {{- end }}
+  
   {{- $fullName := include "base.fullname" . -}}
+  
+  # Debugging to see if $fullName works:
+  {{- printf "Full name: %s" $fullName }}
+
   {{- $svcPort := .Values.service.port -}}
   {{- $kubeVersion := (include "base.capabilities.kubeVersion" .) -}}
   {{- $outerScope := . -}}
