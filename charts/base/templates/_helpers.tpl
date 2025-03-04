@@ -12,9 +12,10 @@ If release name contains chart name it will be used as a full name.
 */}}
 {{- define "base.fullname" -}}
 {{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride }}
+  {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" .Release.Name "base" }}
+  {{- printf "%s-%s" (.Release.Name | default "my-release") "base" | trunc 63 | trimSuffix "-" }}
+{{- end }}
 {{- end }}
 
 {{- define "base.serviceNames" -}}
