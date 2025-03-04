@@ -11,16 +11,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "base.fullname" -}}
-{{- if not .Values }}
-  {{- fail "ERROR: .Values is nil!" }}
-{{- end }}
-{{- printf "%s-%s" .Release.Name .Chart.Name }}
-
 {{- if .Values.fullnameOverride }}
-  {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- .Values.fullnameOverride }}
 {{- else }}
-  {{- printf "%s-%s" (.Release.Name | default "my-release") (.Chart.Name | default "my-chart") | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- printf "%s-%s" .Release.Name "base" }}
 {{- end }}
 
 {{- define "base.serviceNames" -}}
