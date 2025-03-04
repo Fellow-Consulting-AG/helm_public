@@ -5,14 +5,15 @@
   {{- fail "ERROR: .Values is nil!" }}
   {{- end }}
   
-  {{- $fullName := include "base.fullname" . -}}
-  
+  {{- $value := . -}}
+  {{- $fullName := include "base.fullname" $value -}}
+
   # Debugging to see if $fullName works:
   {{- printf "Full name: %s" $fullName }}
 
-  {{- $svcPort := .Values.service.port -}}
-  {{- $kubeVersion := (include "base.capabilities.kubeVersion" .) -}}
-  {{- $outerScope := . -}}
+  {{- $svcPort := $value.Values.service.port -}}
+  {{- $kubeVersion := (include "base.capabilities.kubeVersion" $value) -}}
+  {{- $outerScope := $value -}}
 
   # Ingress resource definition
   apiVersion: {{- if semverCompare ">=1.19-0" $kubeVersion }} networking.k8s.io/v1 {{- else if semverCompare ">=1.14-0" $kubeVersion }} networking.k8s.io/v1beta1 {{- else }} extensions/v1beta1 {{- end }}
@@ -22,9 +23,9 @@
     labels:
       {{- include "base.labels" $outerScope | nindent 4 }}
     annotations:
-      {{- include "annotations" (merge . $) | nindent 4 }}
+      {{- include "annotations" (merge $value $ingress) | nindent 4 }}
   spec:
-    {{- if $.Values.setIngressClassByField }}
+    {{- if $value.Values.setIngressClassByField }}
     ingressClassName: {{ $ingress.class }}
     {{- end }}
     {{- if $ingress.tls }}
