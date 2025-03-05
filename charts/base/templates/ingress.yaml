@@ -28,6 +28,16 @@ spec:
               number: {{ .backend.service.port }}
       {{- end }}
   {{- end }}
+  {{- if .tls }}
+  tls:
+  {{- range .tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
