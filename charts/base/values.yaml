@@ -122,6 +122,26 @@ ingress:
 #             backend:
 #               serviceName: base
 #               servicePort: 8080
+ingress:
+  enabled: true
+  hosts:
+    - host: ai.docbits.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: api
+              port: 3000
+
+    - host: ai-ui.docbits.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ui
+              port: 5173
 
 secrets: []
 secretsDefaultEngine: "ExternalSecrets"
