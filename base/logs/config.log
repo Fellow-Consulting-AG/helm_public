@@ -1,0 +1,6 @@
+2025-09-22 11:11:05,290 DEBUG [...config:get_version] [config.py:27] - Could not read version.txt: [Errno 2] No such file or directory: 'version.txt'
+2025-09-22 11:11:06,227 DEBUG [...config:get_deployment_time] [config.py:39] - Could not read vdeployment.txt: [Errno 2] No such file or directory: 'vdeployment.txt'
+2025-09-22 11:11:20,646 DEBUG [...config:get_version] [config.py:27] - Could not read version.txt: [Errno 2] No such file or directory: 'version.txt'
+2025-09-22 11:11:21,551 DEBUG [...config:get_deployment_time] [config.py:39] - Could not read vdeployment.txt: [Errno 2] No such file or directory: 'vdeployment.txt'
+2025-09-22 11:11:36,261 DEBUG [...config:get_version] [config.py:27] - Could not read version.txt: [Errno 2] No such file or directory: 'version.txt'
+2025-09-22 11:11:37,135 DEBUG [...config:get_deployment_time] [config.py:39] - Could not read vdeployment.txt: [Errno 2] No such file or directory: 'vdeployment.txt'

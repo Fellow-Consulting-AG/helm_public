@@ -1,0 +1,30 @@
+{{- if .Values.service -}}
+{{- $service := .Values.service -}}
+{{- if kindIs "slice" $service -}}
+{{- $service = index $service 0 -}}
+{{- end -}}
+{{- if $service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "base.fullname" . }}
+  labels:
+    {{- include "base.labels" . | nindent 4 }}
+  {{- with $service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ $service.type }}
+  ports:
+    - port: {{ $service.port }}
+      targetPort: {{ $service.targetPort | default .Values.containerPort }}
+      protocol: {{ $service.protocol }}
+      name: {{ $service.name }}
+    {{- if $service.extraPorts }}
+    {{- toYaml $service.extraPorts | nindent 4 }}
+    {{- end }}
+  selector:
+    {{- include "base.selectorLabels" . | nindent 4 }}
+{{- end }}
+{{- end }}

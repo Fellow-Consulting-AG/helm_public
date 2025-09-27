@@ -1,0 +1,23 @@
+{{- if .Values.service -}}
+{{- $service := .Values.service -}}
+{{- if kindIs "slice" $service -}}
+{{- $service = index $service 0 -}}
+{{- end -}}
+{{- if $service.enabled -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "base.fullname" . }}-test-connection"
+  labels:
+    {{- include "base.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "base.fullname" . }}:{{ $service.port }}']
+  restartPolicy: OnFailure
+{{- end }}
+{{- end }}
