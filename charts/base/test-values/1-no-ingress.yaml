@@ -1,0 +1,14 @@
+# Test 1: No ingress defined
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  protocol: TCP
+  name: http
+
+# No ingress defined at all

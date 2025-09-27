@@ -1,0 +1,26 @@
+# Test 3: Single ingress as map
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  class: nginx
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: myservice
+              port: 80
+  tls:
+    - secretName: tls-secret
+      hosts:
+        - example.com

@@ -1,0 +1,12 @@
+# Test 2: Ingress explicitly disabled
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false

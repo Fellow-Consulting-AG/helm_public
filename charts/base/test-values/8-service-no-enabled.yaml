@@ -1,0 +1,12 @@
+# Test 8: Service without enabled key (should default to enabled)
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  protocol: TCP
+  name: http
+  # Note: no "enabled" key - should default to true

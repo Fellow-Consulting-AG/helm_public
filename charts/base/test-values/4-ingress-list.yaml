@@ -1,0 +1,33 @@
+# Test 4: Multiple ingresses as list
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+ingress:
+  - enabled: true
+    nameSuffix: -primary
+    class: nginx
+    hosts:
+      - host: app.example.com
+        paths:
+          - path: /
+            backend:
+              service:
+                name: app
+                port: 80
+  - enabled: true
+    nameSuffix: -api
+    class: nginx
+    hosts:
+      - host: api.example.com
+        paths:
+          - path: /api
+            backend:
+              service:
+                name: api
+                port: 8080

@@ -1,35 +1,40 @@
-{{- if .Values.service }}
-{{- $services := list }}
-{{- if kindIs "slice" .Values.service }}
-  {{- $services = .Values.service }}
-{{- else if kindIs "map" .Values.service }}
-  {{- $services = list .Values.service }}
-{{- end }}
-{{- range $service := $services }}
-{{- if and (kindIs "map" $service) (hasKey $service "enabled") $service.enabled }}
----
+{{- if .Values.service -}}
+{{- $service := .Values.service -}}
+{{- if kindIs "slice" $service -}}
+{{- $service = index $service 0 -}}
+{{- end -}}
+{{- $serviceEnabled := false -}}
+{{- if kindIs "map" $service -}}
+  {{- if hasKey $service "enabled" -}}
+    {{- $serviceEnabled = $service.enabled -}}
+  {{- else -}}
+    {{- $serviceEnabled = true -}}
+  {{- end -}}
+{{- else if kindIs "bool" $service -}}
+  {{- $serviceEnabled = $service -}}
+{{- end -}}
+{{- if $serviceEnabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $service.name | default "default-service-name" }}
+  name: {{ include "base.fullname" . }}
   labels:
-    {{- include "base.labels" $ | nindent 6 }}
+    {{- include "base.labels" . | nindent 4 }}
   {{- with $service.annotations }}
   annotations:
-    {{- toYaml . | nindent 6 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  type: {{ $service.type | default "ClusterIP" }}
+  type: {{ $service.type }}
   ports:
-    - port: {{ $service.port | default 80 }}
-      targetPort: {{ $service.targetPort | default $.Values.containerPort | default 8080 }}
-      protocol: {{ $service.protocol | default "TCP" }}
-      name: {{ $service.name | default "default-port-name" }}
+    - port: {{ $service.port }}
+      targetPort: {{ $service.targetPort | default .Values.containerPort }}
+      protocol: {{ $service.protocol }}
+      name: {{ $service.name }}
     {{- if $service.extraPorts }}
-    {{- toYaml $service.extraPorts | nindent 6 }}
+    {{- toYaml $service.extraPorts | nindent 4 }}
     {{- end }}
   selector:
-    {{- include "base.selectorLabels" $ | nindent 6 }}
-{{- end }}
+    {{- include "base.selectorLabels" . | nindent 4 }}
 {{- end }}
 {{- end }}

@@ -1,0 +1,9 @@
+# Test 7: No service defined
+image:
+  repository: nginx
+  tag: latest
+
+# No service defined
+
+ingress:
+  enabled: false

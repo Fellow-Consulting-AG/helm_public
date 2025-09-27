@@ -1,58 +1,105 @@
-{{- if .Values.ingress }}
-{{- $fullName := include "base.fullname" $ }}
-{{- $ingresses := list }}
-{{- if kindIs "slice" .Values.ingress }}
-  {{- $ingresses = .Values.ingress }}
-{{- else if kindIs "map" .Values.ingress }}
-  {{- if and (hasKey .Values.ingress "enabled") (not .Values.ingress.enabled) }}
-    {{- /* Ingress is explicitly disabled, don't create any resources */ -}}
-  {{- else if hasKey .Values.ingress "hosts" }}
-    {{- /* Single ingress object with hosts */ -}}
-    {{- $ingresses = list .Values.ingress }}
-  {{- end }}
-{{- else if kindIs "bool" .Values.ingress }}
-  {{- /* Ingress is just a boolean, don't create resources */ -}}
-{{- end }}
-{{- range $ingress := $ingresses }}
-  {{- if or (not (hasKey $ingress "enabled")) $ingress.enabled }}
+{{- $hasIngress := false -}}
+{{- if .Values.ingress -}}
+  {{- if kindIs "slice" .Values.ingress -}}
+    {{- if gt (len .Values.ingress) 0 -}}
+      {{- $firstIngress := index .Values.ingress 0 -}}
+      {{- if and (kindIs "map" $firstIngress) (hasKey $firstIngress "enabled") -}}
+        {{- $hasIngress = $firstIngress.enabled -}}
+      {{- else -}}
+        {{- $hasIngress = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else if kindIs "map" .Values.ingress -}}
+    {{- if hasKey .Values.ingress "enabled" -}}
+      {{- $hasIngress = .Values.ingress.enabled -}}
+    {{- else -}}
+      {{- $hasIngress = true -}}
+    {{- end -}}
+  {{- else if kindIs "bool" .Values.ingress -}}
+    {{- $hasIngress = .Values.ingress -}}
+  {{- end -}}
+{{- end -}}
+{{- if $hasIngress -}}
+{{- $fullName := include "base.fullname" . -}}
+{{- $service := .Values.service -}}
+{{- if kindIs "slice" $service -}}
+{{- $service = index $service 0 -}}
+{{- end -}}
+{{- $svcPort := 80 -}}
+{{- if $service -}}
+  {{- if hasKey $service "port" -}}
+    {{- $svcPort = $service.port -}}
+  {{- end -}}
+{{- end -}}
+{{- $kubeVersion := (include "base.capabilities.kubeVersion" .) -}}
+{{- $outerScope := . -}}
+{{- range $key, $ingress := (ternary .Values.ingress (list .Values.ingress) (kindIs "slice" .Values.ingress)) }}
 ---
+{{- if semverCompare ">=1.19-0" $kubeVersion -}}
 apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" $kubeVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}{{ $ingress.nameSuffix | default "" }}
+  name: {{ $fullName }}{{ coalesce $ingress.nameSuffix $key "" }}
+  labels:
+    {{- include "base.labels" $outerScope | nindent 4 }}
+  {{- if $ingress.annotations }}
   annotations:
-    {{- if $ingress.annotations }}
     {{- toYaml $ingress.annotations | nindent 4 }}
-    {{- end }}
+  {{- end }}
 spec:
   {{- if $ingress.class }}
   ingressClassName: {{ $ingress.class }}
-  {{- end }}
-  rules:
-  {{- range $ingress.hosts }}
-  - host: {{ .host }}
-    http:
-      paths:
-      {{- range .paths }}
-      - path: {{ .path }}
-        pathType: {{ .pathType | default "Prefix" }}
-        backend:
-          service:
-            name: {{ .backend.service.name }}
-            port:
-              number: {{ .backend.service.port }}
-      {{- end }}
+  {{- else if $ingress.ingressClassName }}
+  ingressClassName: {{ $ingress.ingressClassName }}
   {{- end }}
   {{- if $ingress.tls }}
   tls:
-  {{- range $ingress.tls }}
+    {{- range $ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
       secretName: {{ .secretName }}
+    {{- end }}
   {{- end }}
+  {{- if $ingress.defaultBackend }}
+  defaultBackend:
+    {{- toYaml $ingress.defaultBackend | nindent 4 }}
   {{- end }}
-{{- end }}
+  rules:
+    {{- range $ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if semverCompare ">=1.19-0" $kubeVersion }}
+            pathType:
+              {{- toYaml (dig "pathType" "Prefix" . ) | nindent 14 }}
+            backend:
+              service:
+                name:
+                  {{- toYaml (coalesce (dig "backend" "serviceName" "" . ) (dig "backend" "service" "name" "" .) $fullName) | nindent 18 }}
+                port:
+                  {{- if eq (kindOf (coalesce (dig "backend" "servicePort" "" . ) (dig "backend" "service" "port" "" .) $svcPort)) "string" }}
+                  name: {{- toYaml (coalesce (dig "backend" "servicePort" "" . ) (dig "backend" "service" "port" "" .) $svcPort) | nindent 20 }}
+                  {{- else }}
+                  number:
+                    {{- toYaml (coalesce (dig "backend" "servicePort" "" . ) (dig "backend" "service" "port" "" .) $svcPort) | nindent 20 }}
+                  {{- end }}
+            {{- else }}
+            backend:
+              serviceName:
+                {{- toYaml (coalesce (dig "backend" "serviceName" "" . ) (dig "backend" "service" "name" "" .) $fullName) | nindent 16 }}
+              servicePort:
+                {{- toYaml (coalesce (dig "backend" "servicePort" "" . ) (dig "backend" "service" "port" "" .) $svcPort) | nindent 16 }}
+            {{- end }}
+          {{- end }}
+    {{- end }}
 {{- end }}
 {{- end }}

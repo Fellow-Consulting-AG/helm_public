@@ -1,0 +1,20 @@
+# Test 5: Old ingress backend format (serviceName/servicePort)
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  class: nginx
+  hosts:
+    - host: old.example.com
+      paths:
+        - path: /
+          backend:
+            serviceName: old-service
+            servicePort: 8080
