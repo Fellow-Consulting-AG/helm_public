@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  base:
+  - apiVersion: v2
+    appVersion: 0.1.61
+    created: "2025-09-27T12:14:44.127611+02:00"
+    description: A Base Helm chart for Kubernetes
+    digest: 82055927c0056c0c09e3cfdd4769276f448987a5468b2383033562beccd3531b
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://fellow-consulting-ag.github.io/helm_public/base-0.1.61.tgz
+    version: 0.1.61
+generated: "2025-09-27T12:14:44.125805+02:00"
