@@ -1,0 +1,17 @@
+# Test 9: Multi-release deployment (verifies unique ConfigMap names)
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  protocol: TCP
+  name: http
+
+# This test verifies that each release gets its own debug ConfigMap
+# When templated with different release names:
+# - helm template api ./chart should create "api-base-debug"
+# - helm template api-celery ./chart should create "api-celery-base-debug"

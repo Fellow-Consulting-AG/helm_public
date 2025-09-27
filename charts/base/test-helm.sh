@@ -140,6 +140,26 @@ else
     ((FAILED_TESTS++))
 fi
 
+# Test 9: Multi-release deployment (unique ConfigMap names)
+echo ""
+echo "Test: Multi-release deployment (unique ConfigMaps)"
+echo "----------------------------------------"
+output1=$(helm template api "$CHART_DIR" -f "$TEST_VALUES_DIR/9-multi-release.yaml" 2>&1)
+output2=$(helm template api-celery "$CHART_DIR" -f "$TEST_VALUES_DIR/9-multi-release.yaml" 2>&1)
+
+if echo "$output1" | grep -q "name: api-base-debug"; then
+    if echo "$output2" | grep -q "name: api-celery-base-debug"; then
+        echo "✅ PASSED: Each release has unique ConfigMap name"
+        ((PASSED_TESTS++))
+    else
+        echo "❌ FAILED: Second release ConfigMap not unique"
+        ((FAILED_TESTS++))
+    fi
+else
+    echo "❌ FAILED: First release ConfigMap not using release name"
+    ((FAILED_TESTS++))
+fi
+
 # Summary
 echo ""
 echo "================================"
