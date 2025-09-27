@@ -1,26 +1,76 @@
 1. Get the application URL by running these commands:
-{{- if not (kindIs "slice" .Values.ingress) }}
-{{- if .Values.ingress.enabled }}
-{{- range $host := .Values.ingress.hosts }}
-  {{- range .paths }}
-  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+{{- $hasIngress := false }}
+{{- $ingressEnabled := false }}
+{{- if .Values.ingress }}
+  {{- if kindIs "slice" .Values.ingress }}
+    {{- if gt (len .Values.ingress) 0 }}
+      {{- $firstIngress := index .Values.ingress 0 }}
+      {{- if and (kindIs "map" $firstIngress) (hasKey $firstIngress "enabled") $firstIngress.enabled }}
+        {{- $ingressEnabled = true }}
+      {{- end }}
+    {{- end }}
+  {{- else if kindIs "map" .Values.ingress }}
+    {{- if hasKey .Values.ingress "enabled" }}
+      {{- $ingressEnabled = .Values.ingress.enabled }}
+    {{- end }}
   {{- end }}
 {{- end }}
-{{- else if contains "NodePort" .Values.service.type }}
+{{- if $ingressEnabled }}
+  {{- if kindIs "slice" .Values.ingress }}
+    {{- range .Values.ingress }}
+      {{- if .enabled }}
+        {{- range .hosts }}
+          {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}{{ .path }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- else if .Values.ingress.hosts }}
+    {{- range $host := .Values.ingress.hosts }}
+      {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- else }}
+  {{- $serviceType := "ClusterIP" }}
+  {{- $servicePort := 80 }}
+  {{- if .Values.service }}
+    {{- if kindIs "slice" .Values.service }}
+      {{- if gt (len .Values.service) 0 }}
+        {{- $firstService := index .Values.service 0 }}
+        {{- if kindIs "map" $firstService }}
+          {{- if hasKey $firstService "type" }}
+            {{- $serviceType = $firstService.type }}
+          {{- end }}
+          {{- if hasKey $firstService "port" }}
+            {{- $servicePort = $firstService.port }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- else if kindIs "map" .Values.service }}
+      {{- if hasKey .Values.service "type" }}
+        {{- $serviceType = .Values.service.type }}
+      {{- end }}
+      {{- if hasKey .Values.service "port" }}
+        {{- $servicePort = .Values.service.port }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if contains "NodePort" $serviceType }}
   export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "base.fullname" . }})
   export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
   echo http://$NODE_IP:$NODE_PORT
-{{- else if contains "LoadBalancer" .Values.service.type }}
+  {{- else if contains "LoadBalancer" $serviceType }}
      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
            You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "base.fullname" . }}'
   export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "base.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
-  echo http://$SERVICE_IP:{{ .Values.service.port }}
-{{- else if contains "ClusterIP" .Values.service.type }}
+  echo http://$SERVICE_IP:{{ $servicePort }}
+  {{- else if contains "ClusterIP" $serviceType }}
   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "base.name" $ }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   export CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
-{{- end }}
-{{- else }}
-kubectl get ingress
+  {{- end }}
 {{- end }}

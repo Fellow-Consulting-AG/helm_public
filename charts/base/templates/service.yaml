@@ -1,5 +1,12 @@
-{{- range $service := .Values.service }}
-{{- if $service.enabled }}
+{{- if .Values.service }}
+{{- $services := list }}
+{{- if kindIs "slice" .Values.service }}
+  {{- $services = .Values.service }}
+{{- else if kindIs "map" .Values.service }}
+  {{- $services = list .Values.service }}
+{{- end }}
+{{- range $service := $services }}
+{{- if and (kindIs "map" $service) (hasKey $service "enabled") $service.enabled }}
 ---
 apiVersion: v1
 kind: Service
@@ -23,5 +30,6 @@ spec:
     {{- end }}
   selector:
     {{- include "base.selectorLabels" $ | nindent 6 }}
+{{- end }}
 {{- end }}
 {{- end }}

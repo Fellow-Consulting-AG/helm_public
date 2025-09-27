@@ -1,22 +1,35 @@
 {{- if .Values.ingress }}
 {{- $fullName := include "base.fullname" $ }}
-{{- range .Values.ingress }}
-  {{- if .enabled }}
+{{- $ingresses := list }}
+{{- if kindIs "slice" .Values.ingress }}
+  {{- $ingresses = .Values.ingress }}
+{{- else if kindIs "map" .Values.ingress }}
+  {{- if and (hasKey .Values.ingress "enabled") (not .Values.ingress.enabled) }}
+    {{- /* Ingress is explicitly disabled, don't create any resources */ -}}
+  {{- else if hasKey .Values.ingress "hosts" }}
+    {{- /* Single ingress object with hosts */ -}}
+    {{- $ingresses = list .Values.ingress }}
+  {{- end }}
+{{- else if kindIs "bool" .Values.ingress }}
+  {{- /* Ingress is just a boolean, don't create resources */ -}}
+{{- end }}
+{{- range $ingress := $ingresses }}
+  {{- if or (not (hasKey $ingress "enabled")) $ingress.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}{{ .nameSuffix | default "" }}
+  name: {{ $fullName }}{{ $ingress.nameSuffix | default "" }}
   annotations:
-    {{- if .annotations }}
-    {{- toYaml .annotations | nindent 4 }}
+    {{- if $ingress.annotations }}
+    {{- toYaml $ingress.annotations | nindent 4 }}
     {{- end }}
 spec:
-  {{- if .class }}
-  ingressClassName: {{ .class }}
+  {{- if $ingress.class }}
+  ingressClassName: {{ $ingress.class }}
   {{- end }}
   rules:
-  {{- range .hosts }}
+  {{- range $ingress.hosts }}
   - host: {{ .host }}
     http:
       paths:
@@ -30,9 +43,9 @@ spec:
               number: {{ .backend.service.port }}
       {{- end }}
   {{- end }}
-  {{- if .tls }}
+  {{- if $ingress.tls }}
   tls:
-  {{- range .tls }}
+  {{- range $ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
