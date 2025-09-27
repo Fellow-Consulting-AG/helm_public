@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   base:
   - apiVersion: v2
+    appVersion: 0.1.64
+    created: "2025-09-27T15:02:31.105772+02:00"
+    description: A Base Helm chart for Kubernetes
+    digest: a54cd3840cd97ad75c28c052c987e75c0d641863eecb1c9a8dcbed95dce34550
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://fellow-consulting-ag.github.io/helm_public/base-0.1.64.tgz
+    version: 0.1.64
+  - apiVersion: v2
     appVersion: 0.1.63
-    created: "2025-09-27T14:33:43.027658+02:00"
+    created: "2025-09-27T15:02:31.10686+02:00"
     description: A Base Helm chart for Kubernetes
     digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -14,7 +25,7 @@ entries:
     version: 0.1.63
   - apiVersion: v2
     appVersion: 0.1.62
-    created: "2025-09-27T14:33:43.027024+02:00"
+    created: "2025-09-27T15:02:31.104407+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 1eb1376ff980522104467c92531e4b646d2d055f643cee418e31435b90bc80cf
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -25,7 +36,7 @@ entries:
     version: 0.1.62
   - apiVersion: v2
     appVersion: 0.1.61
-    created: "2025-09-27T14:33:43.025901+02:00"
+    created: "2025-09-27T15:02:31.10271+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 82055927c0056c0c09e3cfdd4769276f448987a5468b2383033562beccd3531b
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -34,4 +45,4 @@ entries:
     urls:
     - https://fellow-consulting-ag.github.io/helm_public/base-0.1.61.tgz
     version: 0.1.61
-generated: "2025-09-27T14:33:43.023908+02:00"
+generated: "2025-09-27T15:02:31.101054+02:00"
