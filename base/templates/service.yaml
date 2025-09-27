@@ -3,7 +3,17 @@
 {{- if kindIs "slice" $service -}}
 {{- $service = index $service 0 -}}
 {{- end -}}
-{{- if $service.enabled -}}
+{{- $serviceEnabled := false -}}
+{{- if kindIs "map" $service -}}
+  {{- if hasKey $service "enabled" -}}
+    {{- $serviceEnabled = $service.enabled -}}
+  {{- else -}}
+    {{- $serviceEnabled = true -}}
+  {{- end -}}
+{{- else if kindIs "bool" $service -}}
+  {{- $serviceEnabled = $service -}}
+{{- end -}}
+{{- if $serviceEnabled -}}
 apiVersion: v1
 kind: Service
 metadata:

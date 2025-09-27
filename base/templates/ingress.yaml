@@ -1,4 +1,25 @@
-{{- if and .Values.ingress (or (and (kindIs "slice" .Values.ingress) .Values.ingress) (.Values.ingress.enabled)) -}}
+{{- $hasIngress := false -}}
+{{- if .Values.ingress -}}
+  {{- if kindIs "slice" .Values.ingress -}}
+    {{- if gt (len .Values.ingress) 0 -}}
+      {{- $firstIngress := index .Values.ingress 0 -}}
+      {{- if and (kindIs "map" $firstIngress) (hasKey $firstIngress "enabled") -}}
+        {{- $hasIngress = $firstIngress.enabled -}}
+      {{- else -}}
+        {{- $hasIngress = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else if kindIs "map" .Values.ingress -}}
+    {{- if hasKey .Values.ingress "enabled" -}}
+      {{- $hasIngress = .Values.ingress.enabled -}}
+    {{- else -}}
+      {{- $hasIngress = true -}}
+    {{- end -}}
+  {{- else if kindIs "bool" .Values.ingress -}}
+    {{- $hasIngress = .Values.ingress -}}
+  {{- end -}}
+{{- end -}}
+{{- if $hasIngress -}}
 {{- $fullName := include "base.fullname" . -}}
 {{- $service := .Values.service -}}
 {{- if kindIs "slice" $service -}}
