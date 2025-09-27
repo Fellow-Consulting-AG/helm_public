@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - '**.tgz'
+  workflow_dispatch:
 
 jobs:
   build:
