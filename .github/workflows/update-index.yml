@@ -23,5 +23,6 @@ jobs:
           git config --global user.email "yourbot@yourorg.com"
           git config --global user.name "YourOrg Bot"
           git add index.yaml
-          git commit -m "Update chart index"
+          git diff --cached --quiet || git commit -m "Update chart index"
+          git pull --rebase
           git push
