@@ -19,10 +19,10 @@ jobs:
           version: v3.7.0
       - name: Update Index
         run: |
-          helm repo index .
+          helm repo index . --url https://fellow-consulting-ag.github.io/helm_public/
           git config --global user.email "yourbot@yourorg.com"
           git config --global user.name "YourOrg Bot"
           git add index.yaml
           git diff --cached --quiet || git commit -m "Update chart index"
-          git pull --rebase
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:gh_pages --force
