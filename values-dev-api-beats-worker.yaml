@@ -39,7 +39,7 @@ command:
     echo "📍 Timezone: $TZ"
     export TZ=UTC
     echo "Starting Celery Beat Worker..."
-    exec /app/venv/bin/celery -A app.app worker --loglevel=info --queues=beats --concurrency=2
+    exec /app/venv/bin/celery -A celery_run worker --loglevel=info --queues=beats --concurrency=2
 
 externalConfigmap:
   name: api
