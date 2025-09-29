@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   base:
   - apiVersion: v2
+    appVersion: 0.1.70
+    created: "2025-09-29T15:59:51.337982+02:00"
+    description: A Base Helm chart for Kubernetes
+    digest: 360bd65c7eac810ace431dd5fad00968bf268af16fc683f248297cae7285014c
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://fellow-consulting-ag.github.io/helm_public/base-0.1.70.tgz
+    version: 0.1.70
+  - apiVersion: v2
     appVersion: 0.1.69
-    created: "2025-09-29T15:21:29.38392+02:00"
+    created: "2025-09-29T15:59:51.337541+02:00"
     description: A Base Helm chart for Kubernetes - Fixed ingress class field usage
     digest: 06eee9bd544c04866483406051eed1c340dcc63bf1b4856dfdbcc3c3200c6054
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -13,19 +24,8 @@ entries:
     - https://fellow-consulting-ag.github.io/helm_public/base-0.1.69.tgz
     version: 0.1.69
   - apiVersion: v2
-    appVersion: 0.1.68
-    created: "2025-09-29T15:21:29.382794+02:00"
-    description: A Base Helm chart for Kubernetes
-    digest: 64ca7bf68a343bcf483f38b81fdebf93b896665790d7935f40296c82df4e67b2
-    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
-    name: base
-    type: application
-    urls:
-    - https://fellow-consulting-ag.github.io/helm_public/base-0.1.68.tgz
-    version: 0.1.68
-  - apiVersion: v2
     appVersion: 0.1.67
-    created: "2025-09-29T15:21:29.388526+02:00"
+    created: "2025-09-29T15:59:51.341391+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 7a1a9a2627ea9a6a301e90c8edb41738c35864da326d838bcdc8313d1511cade
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -36,7 +36,7 @@ entries:
     version: 0.1.67
   - apiVersion: v2
     appVersion: 0.1.66
-    created: "2025-09-29T15:21:29.382193+02:00"
+    created: "2025-09-29T15:59:51.336744+02:00"
     description: A Base Helm chart for Kubernetes - Fixed template issues
     digest: 20cfd932721a04de451ae676150e63f1065b1b050b58ff9c522dd488388e3142
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -47,7 +47,7 @@ entries:
     version: 0.1.66
   - apiVersion: v2
     appVersion: 0.1.66
-    created: "2025-09-29T15:21:29.387917+02:00"
+    created: "2025-09-29T15:59:51.340979+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 2e2339da8aea5cd2f6e03068a146b0fdf9c4bc72eb686efae8df3713b50c3fba
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -58,7 +58,7 @@ entries:
     version: 0.1.66
   - apiVersion: v2
     appVersion: 0.1.65
-    created: "2025-09-29T15:21:29.387403+02:00"
+    created: "2025-09-29T15:59:51.340268+02:00"
     description: A Base Helm chart for Kubernetes
     digest: bb4f0d72f444f8791cd597f97dee88b482f2b07661633e4027cc67d3bb2096c0
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -69,7 +69,7 @@ entries:
     version: 0.1.65
   - apiVersion: v2
     appVersion: 0.1.64
-    created: "2025-09-29T15:21:29.386651+02:00"
+    created: "2025-09-29T15:59:51.339915+02:00"
     description: A Base Helm chart for Kubernetes
     digest: a54cd3840cd97ad75c28c052c987e75c0d641863eecb1c9a8dcbed95dce34550
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -80,7 +80,7 @@ entries:
     version: 0.1.64
   - apiVersion: v2
     appVersion: 0.1.63
-    created: "2025-09-29T15:21:29.384558+02:00"
+    created: "2025-09-29T15:59:51.338575+02:00"
     description: A Base Helm chart for Kubernetes
     digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -91,7 +91,7 @@ entries:
     version: 0.1.63
   - apiVersion: v2
     appVersion: 0.1.63
-    created: "2025-09-29T15:21:29.385482+02:00"
+    created: "2025-09-29T15:59:51.339151+02:00"
     description: A Base Helm chart for Kubernetes
     digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -102,7 +102,7 @@ entries:
     version: 0.1.63
   - apiVersion: v2
     appVersion: 0.1.62
-    created: "2025-09-29T15:21:29.381001+02:00"
+    created: "2025-09-29T15:59:51.335658+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 1eb1376ff980522104467c92531e4b646d2d055f643cee418e31435b90bc80cf
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -113,7 +113,7 @@ entries:
     version: 0.1.62
   - apiVersion: v2
     appVersion: 0.1.61
-    created: "2025-09-29T15:21:29.380141+02:00"
+    created: "2025-09-29T15:59:51.335016+02:00"
     description: A Base Helm chart for Kubernetes
     digest: 82055927c0056c0c09e3cfdd4769276f448987a5468b2383033562beccd3531b
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -122,4 +122,4 @@ entries:
     urls:
     - https://fellow-consulting-ag.github.io/helm_public/base-0.1.61.tgz
     version: 0.1.61
-generated: "2025-09-29T15:21:29.378753+02:00"
+generated: "2025-09-29T15:59:51.334278+02:00"

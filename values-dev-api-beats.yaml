@@ -1,0 +1,45 @@
+name: api-beats
+
+replicaCount: 2
+
+image:
+  repository: registry.digitalocean.com/cloudintegration/doc2api
+  tag: latest  # Will be overridden by CI/CD
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: cloudintegration
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+
+containerPort: 8080
+
+command:
+  - /bin/bash
+  - -c
+  - |
+    echo "📅 Container time (UTC): $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+    echo "📍 Timezone: $TZ"
+    export TZ=UTC
+    echo "Starting Celery Beat..."
+    exec /app/venv/bin/celery -A celery_beats_run beat --loglevel=info
+
+externalConfigmap:
+  name: api

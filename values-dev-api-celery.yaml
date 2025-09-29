@@ -1,0 +1,45 @@
+name: api-celery
+
+replicaCount: 1
+
+image:
+  repository: registry.digitalocean.com/cloudintegration/doc2api
+  tag: latest  # Will be overridden by CI/CD
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: cloudintegration
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
+  requests:
+    cpu: 1000m
+    memory: 1024Mi
+
+autoscaling:
+  enabled: false
+
+containerPort: 8080
+
+command:
+  - /bin/bash
+  - -c
+  - |
+    echo "📅 Container time (UTC): $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+    echo "📍 Timezone: $TZ"
+    export TZ=UTC
+    echo "Starting Celery Worker..."
+    exec /app/venv/bin/celery -A celery_run worker --loglevel=info --concurrency=4
+
+externalConfigmap:
+  name: api

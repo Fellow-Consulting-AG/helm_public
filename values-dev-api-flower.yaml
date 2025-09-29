@@ -30,10 +30,12 @@ ingress:
   enabled: true
   class: nginx
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-nginx-dns"
+    cert-manager.io/cluster-issuer: "dns-issuer"
     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    cert-manager.io/issue-temporary-certificate: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
     - host: dev.worker.api.docbits.com
       paths:
