@@ -1,0 +1,145 @@
+name: api-flower
+
+replicaCount: 1
+
+image:
+  repository: registry.digitalocean.com/cloudintegration/doc2api
+  tag: 9.66.9
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: cloudintegration
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+# Enable setting ingress class by field instead of deprecated annotation
+setIngressClassByField: true
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  class: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-nginx-dns"
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+  hosts:
+    - host: dev.worker.api.docbits.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: dev-worker-api-docbits-com-tls
+      hosts:
+        - dev.worker.api.docbits.com
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+containerPort: 8080
+
+# Command override for Flower UI
+command:
+  - /bin/bash
+  - -c
+  - |
+    # Container time is synchronized with host automatically
+    # No need for ntpdate as it requires privileged capabilities
+    echo "📅 Container time (UTC): $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+    echo "📍 Timezone: $TZ"
+
+    # Set timezone to UTC explicitly
+    export TZ=UTC
+
+    echo "Starting Flower UI on port 8080..."
+    echo "Broker URL: $DOC2API_CELERY_BROKER_URL"
+
+    # Start Flower with persistence and authentication
+    exec /app/venv/bin/celery --broker=$DOC2API_CELERY_BROKER_URL flower \
+      --port=8080 \
+      --address=0.0.0.0 \
+      --persistent \
+      --purge_offline_workers=200 \
+      --basic_auth='admin:Fellow$$4'
+
+externalConfigmap:
+  name: api
+
+env:
+  - name: ENVIRONMENT_NAME
+    value: "dev"
+  - name: TZ
+    value: "UTC"
+
+# Health check probes optimized for Flower startup time
+startupProbe:
+  httpGet:
+    path: /
+    port: 8080
+    httpHeaders:
+      - name: Authorization
+        value: Basic YWRtaW46RmVsbG93JDQ=  # Base64 encoded "admin:Fellow$4"
+  initialDelaySeconds: 30  # Give Flower time to initialize
+  periodSeconds: 10        # Check every 10 seconds
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 30      # 30 * 10 = 300 seconds (5 minutes) max startup time
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 8080
+    httpHeaders:
+      - name: Authorization
+        value: Basic YWRtaW46RmVsbG93JDQ=
+  initialDelaySeconds: 60  # Start after successful startup
+  periodSeconds: 30
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8080
+    httpHeaders:
+      - name: Authorization
+        value: Basic YWRtaW46RmVsbG93JDQ=
+  initialDelaySeconds: 45  # Start checking readiness after initial startup
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
