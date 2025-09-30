@@ -11,11 +11,11 @@
         {{- $ingressEnabled = true -}}
       {{- end -}}
       {{- if $ingressEnabled -}}
-        {{- range .Values.ingress }}
-          {{- if .hosts }}
-            {{- range .hosts }}
+        {{- range $ingress := .Values.ingress }}
+          {{- if $ingress.hosts }}
+            {{- range $ingress.hosts }}
               {{- range .paths }}
-  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}{{ .path }}
+  http{{ if $ingress.tls }}s{{ end }}://{{ .host }}{{ .path }}
               {{- end }}
             {{- end }}
           {{- end }}
