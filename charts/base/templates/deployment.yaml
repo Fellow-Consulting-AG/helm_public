@@ -41,7 +41,11 @@ spec:
   template:
     metadata:
       annotations:
+        {{- if .Values.externalConfigmap }}
+        configmap: "{{ (lookup "v1" "ConfigMap" .Release.Namespace .Values.externalConfigmap.name).data | toYaml | sha256sum | trunc 8 }}"
+        {{- else }}
         configmap: "{{ .Values.config | toYaml | sha256sum | trunc 8 }}"
+        {{- end }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
