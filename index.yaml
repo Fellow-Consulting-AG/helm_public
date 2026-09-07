@@ -2,8 +2,44 @@ apiVersion: v1
 entries:
   base:
   - apiVersion: v2
+    appVersion: 0.1.79
+    created: "2026-09-07T11:38:05.431421003Z"
+    description: A Base Helm chart for Kubernetes - real checksum/config for externalConfigmap-based
+      services
+    digest: 74ef44ea7e30f62c1426d02e94aa2d8c7076c778eecd0cb59d9996a4b54b0efc
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://FELLOWPRO.github.io/helm_public/base-0.1.79.tgz
+    version: 0.1.79
+  - apiVersion: v2
+    appVersion: 0.1.78
+    created: "2026-09-07T11:38:05.430525461Z"
+    description: A Base Helm chart for Kubernetes - ServiceMonitor release-label,
+      port-name + honorLabels support
+    digest: ffa62633041de9d95defac9c7dc8a742e497f9f6a33495f9c273f0ba872852de
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://FELLOWPRO.github.io/helm_public/base-0.1.78.tgz
+    version: 0.1.78
+  - apiVersion: v2
+    appVersion: 0.1.77
+    created: "2026-09-07T11:38:05.428997795Z"
+    description: A Base Helm chart for Kubernetes - ServiceMonitor release-label,
+      port-name + honorLabels support
+    digest: b204c2c24aadca6e5db64392334f913eb0777745b98b1f2f640f8a9f1531140a
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://FELLOWPRO.github.io/helm_public/base-0.1.77.tgz
+    version: 0.1.77
+  - apiVersion: v2
     appVersion: 0.1.76
-    created: "2026-03-23T09:08:54.388033+01:00"
+    created: "2026-09-07T11:38:05.428162963Z"
     description: A Base Helm chart for Kubernetes
     digest: 5f49be4bc91cbb7578c5cd09fedcf3561de3e82ab84c217b994634770239b7ca
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -14,7 +50,7 @@ entries:
     version: 0.1.76
   - apiVersion: v2
     appVersion: 0.1.75
-    created: "2026-03-23T09:08:54.387554+01:00"
+    created: "2026-09-07T11:38:05.427388659Z"
     description: A Base Helm chart for Kubernetes
     digest: 9f1cff6591eac82183e2ac7e6058550b177a3691328be649ddcdf9a74067e21e
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -25,7 +61,7 @@ entries:
     version: 0.1.75
   - apiVersion: v2
     appVersion: 0.1.74
-    created: "2026-03-23T09:08:54.386594+01:00"
+    created: "2026-09-07T11:38:05.426598242Z"
     description: A Base Helm chart for Kubernetes
     digest: 2b476f36494c8dfa0f19bb99047b4f7a6a1f693668ffc41c8dd2bfb52d59efad
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -36,7 +72,7 @@ entries:
     version: 0.1.74
   - apiVersion: v2
     appVersion: 0.1.73
-    created: "2026-03-23T09:08:54.396753+01:00"
+    created: "2026-09-07T11:38:05.440470638Z"
     description: A Base Helm chart for Kubernetes - Added support for volumes/volumeMounts
       format
     digest: 853050ff8c5b2cf615b1c2b3ed7448847cd636fc013ab9aa6b89092718937a94
@@ -48,7 +84,7 @@ entries:
     version: 0.1.73
   - apiVersion: v2
     appVersion: 0.1.72
-    created: "2026-03-23T09:08:54.394929+01:00"
+    created: "2026-09-07T11:38:05.439094055Z"
     description: A Base Helm chart for Kubernetes - Added support for volumes/volumeMounts
       format
     digest: a8e21ab24371cc162140a0a5c61d0923e16c4ce0769167dbb003c753b7c2b885
@@ -60,7 +96,7 @@ entries:
     version: 0.1.72
   - apiVersion: v2
     appVersion: 0.1.71
-    created: "2026-03-23T09:08:54.385973+01:00"
+    created: "2026-09-07T11:38:05.425854614Z"
     description: A Base Helm chart for Kubernetes - Fixed NOTES.txt ingress template
     digest: 43c0220296dc94917fe726301d56241e8e579895115888e9d33476468b2ebd5c
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -71,7 +107,7 @@ entries:
     version: 0.1.71
   - apiVersion: v2
     appVersion: 0.1.70
-    created: "2026-03-23T09:08:54.385077+01:00"
+    created: "2026-09-07T11:38:05.424448858Z"
     description: A Base Helm chart for Kubernetes
     digest: 360bd65c7eac810ace431dd5fad00968bf268af16fc683f248297cae7285014c
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -82,7 +118,7 @@ entries:
     version: 0.1.70
   - apiVersion: v2
     appVersion: 0.1.69
-    created: "2026-03-23T09:08:54.384432+01:00"
+    created: "2026-09-07T11:38:05.423366238Z"
     description: A Base Helm chart for Kubernetes - Fixed ingress class field usage
     digest: 06eee9bd544c04866483406051eed1c340dcc63bf1b4856dfdbcc3c3200c6054
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -93,7 +129,7 @@ entries:
     version: 0.1.69
   - apiVersion: v2
     appVersion: 0.1.68
-    created: "2026-03-23T09:08:54.383374+01:00"
+    created: "2026-09-07T11:38:05.421596575Z"
     description: A Base Helm chart for Kubernetes
     digest: 64ca7bf68a343bcf483f38b81fdebf93b896665790d7935f40296c82df4e67b2
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -104,7 +140,7 @@ entries:
     version: 0.1.68
   - apiVersion: v2
     appVersion: 0.1.67
-    created: "2026-03-23T09:08:54.393628+01:00"
+    created: "2026-09-07T11:38:05.437698234Z"
     description: A Base Helm chart for Kubernetes
     digest: 7a1a9a2627ea9a6a301e90c8edb41738c35864da326d838bcdc8313d1511cade
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -115,18 +151,7 @@ entries:
     version: 0.1.67
   - apiVersion: v2
     appVersion: 0.1.66
-    created: "2026-03-23T09:08:54.39301+01:00"
-    description: A Base Helm chart for Kubernetes
-    digest: 2e2339da8aea5cd2f6e03068a146b0fdf9c4bc72eb686efae8df3713b50c3fba
-    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
-    name: base
-    type: application
-    urls:
-    - https://FELLOWPRO.github.io/helm_public/charts/base-0.1.66.tgz
-    version: 0.1.66
-  - apiVersion: v2
-    appVersion: 0.1.66
-    created: "2026-03-23T09:08:54.382137+01:00"
+    created: "2026-09-07T11:38:05.42084828Z"
     description: A Base Helm chart for Kubernetes - Fixed template issues
     digest: 20cfd932721a04de451ae676150e63f1065b1b050b58ff9c522dd488388e3142
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -136,8 +161,19 @@ entries:
     - https://FELLOWPRO.github.io/helm_public/base-0.1.66.tgz
     version: 0.1.66
   - apiVersion: v2
+    appVersion: 0.1.66
+    created: "2026-09-07T11:38:05.436894356Z"
+    description: A Base Helm chart for Kubernetes
+    digest: 2e2339da8aea5cd2f6e03068a146b0fdf9c4bc72eb686efae8df3713b50c3fba
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://FELLOWPRO.github.io/helm_public/charts/base-0.1.66.tgz
+    version: 0.1.66
+  - apiVersion: v2
     appVersion: 0.1.65
-    created: "2026-03-23T09:08:54.392455+01:00"
+    created: "2026-09-07T11:38:05.435577992Z"
     description: A Base Helm chart for Kubernetes
     digest: bb4f0d72f444f8791cd597f97dee88b482f2b07661633e4027cc67d3bb2096c0
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -148,7 +184,7 @@ entries:
     version: 0.1.65
   - apiVersion: v2
     appVersion: 0.1.64
-    created: "2026-03-23T09:08:54.39186+01:00"
+    created: "2026-09-07T11:38:05.434942033Z"
     description: A Base Helm chart for Kubernetes
     digest: a54cd3840cd97ad75c28c052c987e75c0d641863eecb1c9a8dcbed95dce34550
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -159,18 +195,7 @@ entries:
     version: 0.1.64
   - apiVersion: v2
     appVersion: 0.1.63
-    created: "2026-03-23T09:08:54.389443+01:00"
-    description: A Base Helm chart for Kubernetes
-    digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
-    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
-    name: base
-    type: application
-    urls:
-    - https://FELLOWPRO.github.io/helm_public/base/base-0.1.63.tgz
-    version: 0.1.63
-  - apiVersion: v2
-    appVersion: 0.1.63
-    created: "2026-03-23T09:08:54.390553+01:00"
+    created: "2026-09-07T11:38:05.433567463Z"
     description: A Base Helm chart for Kubernetes
     digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -180,8 +205,19 @@ entries:
     - https://FELLOWPRO.github.io/helm_public/charts/base-0.1.63.tgz
     version: 0.1.63
   - apiVersion: v2
+    appVersion: 0.1.63
+    created: "2026-09-07T11:38:05.432499556Z"
+    description: A Base Helm chart for Kubernetes
+    digest: f12622deed0e7fd16f969a5bcf793ff041e0aae353d5bfbc2b7bb30cd4f01064
+    icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
+    name: base
+    type: application
+    urls:
+    - https://FELLOWPRO.github.io/helm_public/base/base-0.1.63.tgz
+    version: 0.1.63
+  - apiVersion: v2
     appVersion: 0.1.62
-    created: "2026-03-23T09:08:54.380862+01:00"
+    created: "2026-09-07T11:38:05.419472729Z"
     description: A Base Helm chart for Kubernetes
     digest: 1eb1376ff980522104467c92531e4b646d2d055f643cee418e31435b90bc80cf
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -192,7 +228,7 @@ entries:
     version: 0.1.62
   - apiVersion: v2
     appVersion: 0.1.61
-    created: "2026-03-23T09:08:54.379751+01:00"
+    created: "2026-09-07T11:38:05.418297673Z"
     description: A Base Helm chart for Kubernetes
     digest: 82055927c0056c0c09e3cfdd4769276f448987a5468b2383033562beccd3531b
     icon: https://media.licdn.com/dms/image/C4E0BAQEdK6tkXfbtXQ/company-logo_200_200/0/1674118[…]47483647&v=beta&t=66-Xh3XKEy8l4jC5BCzb-73JqBDxRZPWACNt9KRiL4M
@@ -201,4 +237,4 @@ entries:
     urls:
     - https://FELLOWPRO.github.io/helm_public/base-0.1.61.tgz
     version: 0.1.61
-generated: "2026-03-23T09:08:54.378277+01:00"
+generated: "2026-09-07T11:38:05.416554479Z"
